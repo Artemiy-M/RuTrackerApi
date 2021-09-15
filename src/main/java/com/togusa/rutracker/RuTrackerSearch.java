@@ -20,7 +20,7 @@ public class RuTrackerSearch {
         Settings.TRACKER_PASSWORD = password;
     }
 
-    public List<SearchResultRow> search(String searchPhrase) throws IOException {
+    public List<Torrent> search(String searchPhrase) throws IOException {
         if (!Authenticator.isAuthenticated()) {
             Authenticator.login();
         }
@@ -39,9 +39,9 @@ public class RuTrackerSearch {
             }
 
             Elements results = doc.getElementsByClass("tCenter hl-tr");
-            List<SearchResultRow> searchResults = new ArrayList<>();
+            List<Torrent> searchResults = new ArrayList<>();
             for (Element result : results) {
-                searchResults.add(new SearchResultRow(result));
+                searchResults.add(new Torrent(result));
             }
             return searchResults;
         }
@@ -49,15 +49,15 @@ public class RuTrackerSearch {
     }
 
     // trying to choose best result based on date, amount of seeds and status of the torrent
-    public SearchResultRow offerBestOne(List<SearchResultRow> results) {
+    public Torrent offerBestOne(List<Torrent> results) {
         if (results.size() > 0) {
-            List<SearchResultRow> filteredResults = results.stream().
+            List<Torrent> filteredResults = results.stream().
                     filter(row -> row.getSeeders() > 0).
                     filter(row -> !row.getStatus().equals(TorrentStatus.NOT_APPROVED) || !row.getStatus().equals(TorrentStatus.APPROVED)).
-                    sorted(Comparator.comparingInt(SearchResultRow::getSeeders).reversed()).
+                    sorted(Comparator.comparingInt(Torrent::getSeeders).reversed()).
                     collect(Collectors.toList());
             if (filteredResults.size() > 0) {
-                SearchResultRow currentResult = filteredResults.get(0);
+                Torrent currentResult = filteredResults.get(0);
                 int topSeedsAmount = currentResult.getSeeders();
                 if (filteredResults.size() > 1) {
                     for (int i = 1; i < filteredResults.size(); i++) {

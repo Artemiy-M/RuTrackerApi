@@ -10,7 +10,7 @@ import java.math.RoundingMode;
 import java.util.Date;
 import java.util.Objects;
 
-public class SearchResultRow {
+public class Torrent {
 
     private final TorrentStatus status;
     private final String forum;
@@ -23,7 +23,7 @@ public class SearchResultRow {
     private final int timesDownloaded;
     private final Date date;
 
-    SearchResultRow(Element element) {
+    Torrent(Element element) {
         status = TorrentStatus.valueOfLabel(element.getElementsByClass("row1 t-ico").get(1).attr("title"));
         forum = element.getElementsByClass("gen f ts-text").get(0).text();
         name = element.getElementsByClass("t-title").get(0).text();
@@ -54,7 +54,7 @@ public class SearchResultRow {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SearchResultRow that = (SearchResultRow) o;
+        Torrent that = (Torrent) o;
         return Double.compare(that.size, size) == 0 &&
                 seeders == that.seeders &&
                 leechers == that.leechers &&
