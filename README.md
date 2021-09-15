@@ -23,7 +23,7 @@ Result gives you:
   
   leechers
   
-  times torrent have been downloaded
+  the number of times the torrent has been downloaded
   
   date
  
