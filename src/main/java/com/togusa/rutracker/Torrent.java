@@ -27,7 +27,7 @@ public class Torrent {
         status = TorrentStatus.valueOfLabel(element.getElementsByClass("row1 t-ico").get(1).attr("title"));
         forum = element.getElementsByClass("gen f ts-text").get(0).text();
         name = element.getElementsByClass("t-title").get(0).text();
-        URL = Settings.TRACKER_URL + element.select("a").first().attr("href");
+        URL = Settings.TRACKER_URL + element.select("a").get(1).attr("href");
         author = element.getElementsByClass("wbr u-name").get(0).text();
         size = round(Double.parseDouble(element.getElementsByClass("row4 small nowrap tor-size").get(0).attr("data-ts_text")) / 1024 / 1024 / 1024, 2);
         int tempSeeds;
