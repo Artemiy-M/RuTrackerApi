@@ -22,6 +22,7 @@ public class Torrent {
     private final int leechers;
     private final int timesDownloaded;
     private final Date date;
+    private String torrentMagnetURL = null;
 
     Torrent(Element element) {
         status = TorrentStatus.valueOfLabel(element.getElementsByClass("row1 t-ico").get(1).attr("title"));
@@ -128,18 +129,27 @@ public class Torrent {
         return date;
     }
 
-    public String getTorrentMagnetURL() throws IOException {
-        Document doc;
-        if (Settings.USE_PROXY) {
-            doc = Jsoup.connect(URL)
-                    .cookies(Authenticator.getCookies())
-                    .proxy(HttpProxy.getProxyObject())
-                    .get();
-        } else {
-            doc = Jsoup.connect(URL)
-                    .cookies(Authenticator.getCookies())
-                    .get();
+    public void loadMagnetURL() {
+        try {
+            Document doc;
+            if (Settings.USE_PROXY) {
+                doc = Jsoup.connect(URL)
+                        .cookies(Authenticator.getCookies())
+                        .proxy(HttpProxy.getProxyObject())
+                        .get();
+            } else {
+                doc = Jsoup.connect(URL)
+                        .cookies(Authenticator.getCookies())
+                        .get();
+            }
+            torrentMagnetURL = doc.getElementsByClass("med magnet-link").get(0).attr("href");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return doc.getElementsByClass("med magnet-link").get(0).attr("href");
+
+    }
+
+    public String getTorrentMagnetURL()  {
+        return torrentMagnetURL;
     }
 }
