@@ -30,7 +30,7 @@ rutracker.password=
 ```
 
 ## Proxy
-Proxy usage supported, you need to edit apllication.properties.
+Proxy usage supported, you need to edit application.properties.
 ```
 app.proxy.use=false
 app.proxy.user=
