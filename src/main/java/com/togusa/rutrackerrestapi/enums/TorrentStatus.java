@@ -1,4 +1,4 @@
-package com.togusa.rutracker;
+package com.togusa.rutrackerrestapi.enums;
 
 public enum TorrentStatus {
 
@@ -20,7 +20,7 @@ public enum TorrentStatus {
         this.status = status;
     }
 
-    static TorrentStatus valueOfLabel(String label) {
+    public static TorrentStatus valueOfLabel(String label) {
         for (TorrentStatus e : values()) {
             if (e.status.equals(label)) {
                 return e;
@@ -28,4 +28,5 @@ public enum TorrentStatus {
         }
         return null;
     }
+
 }
