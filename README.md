@@ -1,6 +1,6 @@
 # Java - RuTracker API
 
-Java implementation of rutracker search. Provides top 50 results and can offer best result based on amount of seeds, date and status of torrents.
+Java implementation of rutracker search. Provides search results (limited to 500 by the tracker), get torrent by id and can offer best result based on amount of seeds, date and status of torrents.
 Needs account for authentication, anonymous use is prohibited on RuTracker.
 
 Result gives you:
